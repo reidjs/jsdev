@@ -1,0 +1,19 @@
+img {
+  width: 30%;
+  float: left;
+  height: 100px;
+  margin: 1.66%
+}
+
+p {
+  /*font-family: 'Saira Condensed', sans-serif;*/
+
+  font-family: 'Saira Condensed';
+  margin-left: 1.66%;
+  font-size: 2.0em;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: 3px solid #f1f1f1;
+  padding-bottom: 20px;
+  width: 30%;
+}

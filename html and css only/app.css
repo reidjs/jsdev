@@ -1,0 +1,20 @@
+h1 {
+  color: purple;
+  /*border-color: purple;
+  border-width: 5px;
+  border-style: solid;
+  Shorcut below:
+  */
+  border: 5px solid purple; 
+}
+li {
+  color: orange;
+}
+h2 {
+  background: rgb(255,100,80)
+}
+body {
+  /*background: url(https://s-media-cache-ak0.pinimg.com/736x/27/51/08/275108132399f75f6417bff5d18b13c1--wood-grain-texture-wood-grain-pattern.jpg);*/
+  /*background-repeat: no-repeat;
+  background-size:cover;*/
+}
