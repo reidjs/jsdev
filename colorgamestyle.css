@@ -24,3 +24,6 @@ body {
   max-width: 600px;
   margin: 0 auto;
 }
+.selected {
+  background-color: "blue"
+}

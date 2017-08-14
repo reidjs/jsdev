@@ -7,13 +7,29 @@ var h1 = document.querySelector("h1")
 var colorDisplay = document.getElementById("colorDisplay")
 var messageDisplay = document.querySelector("#messageDisplay")
 var resetButton = document.querySelector("#resetButton")
+var easyButton = document.querySelector("#easyButton")
+var hardButton = document.querySelector("#hardButton")
+var difficulty = 6
 resetButton.addEventListener("click", reset)
+easyButton.addEventListener("click", function(){
+  easyButton.classList.add("selected")
+  hardButton.classList.remove("selected")
+  difficulty = 3
+  reset()
+})
+hardButton.addEventListener("click", function(){
+  easyButton.classList.remove("selected")
+  hardButton.classList.add("selected")
+  difficulty = 6
+  reset()
+})
+
 initialize()
 
 
 
 function reset() {
-  colors = generateRandomColors(6)
+  colors = generateRandomColors(difficulty)
   pickedColor = pickColor()
   messageDisplay.textContent = ""
   h1.style["background-color"] = "inherit"
@@ -23,7 +39,12 @@ function reset() {
 function initialize(){
   for(var i = 0; i < squares.length; i++){
     //add color to square
-    squares[i].style["background-color"] = colors[i]
+    if (i < difficulty) {
+      squares[i].style.display = "block"
+      squares[i].style["background-color"] = colors[i]
+    }
+    else
+      squares[i].style.display = "none"
 
     //if they are clicked on, return the color of the square.
     squares[i].addEventListener("click", function() {
@@ -60,7 +81,7 @@ function generateRandomColors(num) {
 }
 function randomRGBColor() {
   rgb = []
-  console.log("here")
+  // console.log("here")
   for(var i = 0; i < 3; i++) {
     rgb.push(Math.floor(Math.random() * 256))
   }
