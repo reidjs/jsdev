@@ -1,6 +1,15 @@
 #titleDiv {
-  background: blue;
+  background: steelblue;
   color: white;
+
+
+}
+h1{
+  text-align: center;
+  font-weight: normal;
+  text-transform:uppercase;
+  line-height: 1.1;
+  padding: 20px 0;
 }
 #playerOptionsDiv {
   background: white;
@@ -11,19 +20,53 @@
 }
 body {
   background-color: #232323;
+  margin:0;
+  font-family: "Monterrat", "Avenir";
 }
 .square {
   width: 30%;
-  background: purple;
+  background-color: purple;
   padding-bottom:30%;
   margin: 1.66%;
   float:left;
-
+  /*rounded corners*/
+  border-radius: 15%;
+  transition: background-color 0.6s;
+  -webkit-transition: background-color 0.6s;
+  -moz-transition: background-color 0.6s;
 }
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .selected {
-  background-color: "blue"
+  border: 2px solid orange;
+  /*background-color: "blue"*/
+}
+button {
+  border: none;
+  background: none;
+  text-transform:uppercase;
+  height: 100%;
+  font-weight: 700;
+  color: steelblue;
+  letter-spacing: 1px;
+  font-size: inherit;
+  /*For fade in on the buttons*/
+  transition: all 0.3s;
+  /*cross browser compatibility*/
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+}
+button:hover {
+  color:white;
+  background: steelblue;
+}
+#colorDisplay {
+  font-size:200%;
+}
+#messageDisplay {
+  /*Pushes elements away/reserves the space*/
+  display: inline-block;
+  width: 20%
 }
