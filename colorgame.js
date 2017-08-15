@@ -4,6 +4,7 @@ var colors = generateRandomColors(6)
 var pickedColor = pickColor()
 var squares = document.querySelectorAll(".square")
 var h1 = document.querySelector("h1")
+var titleDiv = document.querySelector("#titleDiv")
 var colorDisplay = document.getElementById("colorDisplay")
 var messageDisplay = document.querySelector("#messageDisplay")
 var resetButton = document.querySelector("#resetButton")
@@ -37,6 +38,8 @@ function reset() {
 }
 
 function initialize(){
+  resetButton.textContent = "New Colors"
+  titleDiv.style["background-color"] = "steelblue"
   for(var i = 0; i < squares.length; i++){
     //add color to square
     if (i < difficulty) {
@@ -50,8 +53,9 @@ function initialize(){
     squares[i].addEventListener("click", function() {
       //compare color to pickedColor
       if (this.style["background-color"] === pickedColor) {
+        resetButton.textContent = "Play Again?"
         messageDisplay.textContent = "Correct"
-        h1.style["background-color"] = pickedColor
+        titleDiv.style["background-color"] = pickedColor
         changeColors(pickedColor)
       }
       else {
