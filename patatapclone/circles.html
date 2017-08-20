@@ -3,8 +3,93 @@
   <head>
     <meta charset="utf-8">
     <title>Circles</title>
+    <link rel="stylesheet" href="circles.css">
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.js"></script>
+
+    <script type="text/paperscript" canvas="myCanvas">
+
+    var keyData = {
+      a:{
+        color: "purple",
+        sound: new Howl({
+          src: ['sounds/bubbles.mp3']
+        })
+      },
+      s:{
+        color: "red",
+        sound: new Howl({
+          src: ['sounds/clay.mp3']
+        })
+      },
+      d:{
+        color: "yellow",
+        sound: new Howl({
+          src: ['sounds/confetti.mp3']
+        })
+      }
+    }
+    var circles = []
+    function onKeyDown(event) {
+      if(keyData[event.key]) {
+        var maxPoint = new Point(view.size.width, view.size.height)
+        var randomPoint = Point.random();
+        var point = maxPoint*randomPoint;
+        var newCircle = new Path.Circle(point, 500)
+        newCircle.fillColor = keyData[event.key].color
+        keyData[event.key].sound.play()
+        circles.push(newCircle)
+      }
+      // if (event.key === 'a') {
+      //   sound1.play();
+      //   newCircle.fillColor = "orange"
+      // }
+      // else if (event.key === 's'){
+      //   sound2.play();
+      //   newCircle.fillColor = "blue"
+      // }
+      // else {
+      //   newCircle.fillColor = "red"
+      // }
+
+      console.log(view.size.height) //window dimensions
+      console.log(view.size.width)
+
+    }
+    function onFrame(e){
+      for (var i = 0; i < circles.length; i++){
+        circles[i].fillColor.hue += 1
+        circles[i].scale(.92)
+
+      }
+      // animatedCircle.fillColor.hue += 1
+
+    }
+    </script>
   </head>
   <body>
-
+    <canvas id="myCanvas" resize></canvas>
   </body>
 </html>
+
+<!-- // Create a Paper.js Path to draw a line into it:
+//   var path = new Path();
+// 	// Give the stroke a color
+// 	path.strokeColor = 'red';
+// 	var start = new Point(50, 100);
+// 	// Move to start and draw a line from there
+// 	path.moveTo(start);
+// 	// Note the plus operator on Point objects.
+// 	// PaperScript does that for us, and much more!
+// 	path.lineTo(start + [ 100, -500 ]);
+//   var myCircle = new Path.Circle(new Point(100, 70), 10);
+//   myCircle.fillColor = 'green';
+//   var myCircle2 = new Path.Circle(new Point(150, 20), 60);
+//   myCircle2.fillColor = 'blue';
+ //
+//   for (var i = 0; i < 10; i++){
+//     for (var j = 0; j < 10; j++){
+//       var c = new Path.Circle(new Point(i*100, j*100), 10)
+//       c.fillColor=new Color(i*2, j*2, 44)
+//     }
+//   } -->
