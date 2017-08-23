@@ -8,13 +8,15 @@ app.set("view engine", "ejs");
 //schema for mongoose
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create({
 //   name: "Mountain Goat Hill",
-//   image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"
+//   image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg",
+//   description: "A hill covered with mountain goats, what else would it be?"
 // }, function(err, campground){
 //   if (err)
 //     console.log(err);
@@ -39,23 +41,26 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 app.get("/", function(req, res){
   res.render("landing");
 });
+//INDEX
 app.get("/campgrounds", function(req, res){
   Campground.find({}, function(err, allCampgrounds){
     if (err)
       console.log(err);
     else {
-      res.render("campgrounds", {campgrounds:allCampgrounds});
+      res.render("index", {campgrounds:allCampgrounds});
     }
   });
   //res.render("campgrounds", {campgrounds: campgrounds});
 });
+//CREATE
 //To make routes RESTful, we use identical URLs for GET and POST
 app.post("/campgrounds", function(req, res){
   //get form data and add to campgrounds array
   //redirect back to campgrounds page
   var name = req.body.name;
   var image = req.body.image;
-  var newCampground = {name: name, image: image};
+  var desc = req.body.description;
+  var newCampground = {name: name, image: image, description: desc};
   Campground.create(newCampground, function(err, newlyCreate){
     if (err){
       console.log(err);
@@ -68,8 +73,22 @@ app.post("/campgrounds", function(req, res){
   //create new campground and save to DB
 
 });
+//NEW (show form). This MUST come before the campgrounds/:id because it follows that pattern!
 app.get("/campgrounds/new", function(req, res){
   res.render('new.ejs');
+});
+//SHOW (more information about ONE campground)
+app.get("/campgrounds/:id", function(req, res){
+  //find page with that id, then show it.
+  Campground.findById(req.params.id, function(err, foundCampground){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.render('show', {campground: foundCampground});
+    }
+  });
+
 
 });
 app.listen(3000, function(){
