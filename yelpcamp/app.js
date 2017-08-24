@@ -1,43 +1,16 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
-  mongoose = require('mongoose');
-app = express();
+  app = express(),
+  mongoose = require('mongoose'),
+  Campground = require('./models/campground'),
+  seedDB = require('./seeds');
+
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 //schema for mongoose
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-var Campground = mongoose.model("Campground", campgroundSchema);
 
-// Campground.create({
-//   name: "Mountain Goat Hill",
-//   image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg",
-//   description: "A hill covered with mountain goats, what else would it be?"
-// }, function(err, campground){
-//   if (err)
-//     console.log(err);
-//   else
-//     console.log("NEW CAMPGROUND: ",campground);
-// });
-
-
-// var campgrounds = [
-//   {name: "Salmon Creek", image: "http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-//   {name: "Mountain Goat Hill", image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"},
-//   {name: "Salmon Creek", image: "http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-//   {name: "Mountain Goat Hill", image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"},
-//   {name: "Salmon Creek", image: "http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-//   {name: "Mountain Goat Hill", image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"},
-//   {name: "Salmon Creek", image: "http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-//   {name: "Mountain Goat Hill", image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"},
-//   {name: "Salmon Creek", image: "http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-//   {name: "Mountain Goat Hill", image: "http://visitindianacountypa.org/wp-content/themes/indianna/images/graphics/wheel%20in%20campground%20(2).jpg"},
-//   {name: "Mountain Valley", image: "http://camprrm.com/wp-content/uploads/2011/06/whiteface1.jpg"}
-// ];
 app.get("/", function(req, res){
   res.render("landing");
 });
@@ -80,16 +53,16 @@ app.get("/campgrounds/new", function(req, res){
 //SHOW (more information about ONE campground)
 app.get("/campgrounds/:id", function(req, res){
   //find page with that id, then show it.
+  // Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
   Campground.findById(req.params.id, function(err, foundCampground){
     if (err) {
       console.log(err);
     }
     else {
+      console.log(foundCampground);
       res.render('show', {campground: foundCampground});
     }
   });
-
-
 });
 app.listen(3000, function(){
   console.log("YelpCamp server started");
