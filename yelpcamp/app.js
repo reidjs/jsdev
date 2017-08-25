@@ -8,6 +8,8 @@ var express = require('express'),
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
+//link our style sheet
+app.use(express.static(__dirname +"/public"));
 app.set("view engine", "ejs");
 seedDB();
 //schema for mongoose
